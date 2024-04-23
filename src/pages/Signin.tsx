@@ -2,6 +2,8 @@ import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Bounce, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import LoaderButton from "@/components/LoaderButton";
 import { LeafyGreen } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,6 +18,19 @@ type FormData = {
 };
 
 function Signin() {
+  const notify=()=>{
+    toast.success("Login Successful",{
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    })
+  }
     const [err,setErr]=React.useState("");
     const navigate=useNavigate();
   const dispatch = useDispatch();
@@ -110,12 +125,13 @@ function Signin() {
           {isSubmitting ? (
             <LoaderButton />
           ) : (
-            <Button type="submit">Sign in</Button>
+            <Button onClick={notify} type="submit">Sign in</Button>
           )}
           <p>Don't have an account? <NavLink className={`text-blue-500 hover:text-blue-700 transition-all duration-500`} to={`/signup`}>Sign up</NavLink></p>
           {err && <p className="text-red-500">{err}</p>}
         </form>
       </div>
+      <ToastContainer />
     </div>
   );
 }
