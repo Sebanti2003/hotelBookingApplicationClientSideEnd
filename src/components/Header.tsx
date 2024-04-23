@@ -6,23 +6,27 @@ import { setlogin } from '@/store/slices/userslice.slice'
 import { IoMan } from "react-icons/io5";
 function Header() {
   const dispatch=useDispatch()
+  const user=useSelector(state=>state.user)
   const signout=async()=>{
     try {
       const signingout=await fetch(`${import.meta.env.VITE_BACKEND_SERVER_URL}/api/v1/user/logout`,{
         method:"POST",
         credentials:"include",
         headers:{
+          "Authorization":`Bearer ${user.accesstoken}`,
           "Content-Type":"application/json"
         }
       })
-      const data=await signingout.json()
+      const data=await signingout.json();
       console.log(data);
+      dispatch(setlogin({email:"",username:"",avatar:"",isauthenticated:false,accesstoken:"",refreshtoken:""}));
+      window.location.reload();
       
     } catch (error) {
       console.log(error);
     }
   }
-    const user=useSelector(state=>state.user)
+
     console.log("user: ",user);
     
   return (
