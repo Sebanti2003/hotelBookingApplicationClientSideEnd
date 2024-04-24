@@ -1,7 +1,5 @@
 import { Button } from "./ui/button";
 
-import React from "react";
-
 function LoaderButton() {
   return (
     <Button className="flex gap-1" type="submit" disabled>

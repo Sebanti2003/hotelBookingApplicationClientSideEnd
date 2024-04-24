@@ -1,6 +1,6 @@
-import React from 'react'
-import { Outlet,useLocation,Navigate } from 'react-router-dom'
-import { useSelector,useDispatch } from 'react-redux'
+
+import { Outlet,Navigate } from 'react-router-dom'
+import { useSelector} from 'react-redux'
 function ProtectedRoutes() {
     const user=useSelector(state=>state.user)
   return (
