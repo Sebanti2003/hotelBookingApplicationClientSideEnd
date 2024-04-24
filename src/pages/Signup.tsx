@@ -40,7 +40,7 @@ function Signup() {
         return;
       }
     } catch (error) {
-      setErr(error?.response?.data?.message);
+      setErr((error as any)?.response?.data?.message);
     }
   };
   const handlefileimagechange = (e: React.ChangeEvent<HTMLInputElement>) => {

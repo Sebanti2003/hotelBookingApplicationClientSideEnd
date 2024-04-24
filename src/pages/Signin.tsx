@@ -68,7 +68,7 @@ function Signin() {
       
       navigate("/");
 
-    } catch (error:eror) {
+    } catch (error:any) {
       console.log(error?.message);
       setErr(error?.message);
       
