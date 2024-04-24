@@ -5,10 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoaderButton from "@/components/LoaderButton";
-import { LeafyGreen } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { setlogin } from "@/store/slices/userslice.slice";
 
 type FormData = {
@@ -38,7 +36,6 @@ function Signin() {
   const {
     register,
     handleSubmit,
-    setError,
     formState: { errors, isSubmitting },
   } = useForm<FormData>({
     defaultValues: {
@@ -52,11 +49,20 @@ function Signin() {
       const formdata={...data}
       console.log(formdata);
       
-      const response = await axios.post(
-        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/v1/user/login`,
-        formdata
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/v1/user/login`,{
+          method:"POST",
+          credentials:"include",
+          headers:{
+            "Content-Type":"application/json"
+          },
+          body:JSON.stringify(formdata)
+        }
       )
-      dispatch(setlogin({email:response.data.user.email,username:response.data.user.username,avatar:response.data.user.avatar,isauthenticated:true,accesstoken:response.data.accesstoken,refreshtoken:response.data.refreshtoken}));
+      const dataa=await response.json();
+      console.log(dataa);
+      
+      dispatch(setlogin({email:dataa.user.email,username:dataa.user.username,avatar:dataa.user.avatar,isauthenticated:true,accesstoken:dataa.accesstoken,refreshtoken:dataa.refreshtoken}));
       console.log(response);
       
       navigate("/");

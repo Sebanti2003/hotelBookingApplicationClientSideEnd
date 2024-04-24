@@ -1,10 +1,10 @@
-import React from 'react'
+
 import { Button } from "@/components/ui/button"
-import { NavLink, useNavigation } from 'react-router-dom'
+import { NavLink, useLocation} from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 import { setlogin } from '@/store/slices/userslice.slice'
-import { IoMan } from "react-icons/io5";
 function Header() {
+  const location=useLocation();
   const dispatch=useDispatch()
   const user=useSelector(state=>state.user)
   const signout=async()=>{
@@ -37,7 +37,7 @@ function Header() {
           <Button className='text-white font-bold text-lg' variant={"link"}>My Booking</Button>
           <Button variant={"link"} className='capitalize text-white font-bold text-lg'>My hotels</Button>
           <div><Button onClick={signout} className='bg-white text-blue-600 hover:bg-black hover:text-white font-bold  transition-all duration-200'>Sign out</Button></div>
-        </div>:<NavLink to={`/signin`}><Button className='bg-white text-blue-600 hover:bg-black hover:text-white   transition-all duration-500'>Sign In</Button></NavLink>}
+        </div>:location.pathname==='/signin'?<NavLink to={`/signup`}><Button className='bg-white text-blue-600 hover:bg-black hover:text-white   transition-all duration-500'>Sign Up</Button></NavLink>:<NavLink to={`/signin`}><Button className='bg-white text-blue-600 hover:bg-black hover:text-white   transition-all duration-500'>Sign In</Button></NavLink>}
       </div>
     </div>
   )

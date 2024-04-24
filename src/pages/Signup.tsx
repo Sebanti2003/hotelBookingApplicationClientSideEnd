@@ -5,7 +5,7 @@ import axios from "axios";
 import { Button } from "@/components/ui/button";
 import LoaderButton from "@/components/LoaderButton";
 import { FaCameraRetro } from "react-icons/fa";
-import { NavLink, Navigate, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 type FormData = {
   username: string;
@@ -146,7 +146,7 @@ function Signup() {
           {isSubmitting ? (
             <LoaderButton />
           ) : (
-            <Button type="submit">Sign in</Button>
+            <Button type="submit">Register</Button>
           )}
           <p>
             Already have an account?{" "}
