@@ -40,7 +40,6 @@ function Signup() {
         return;
       }
     } catch (error) {
-      console.log(error?.response?.data?.message);
       setErr(error?.response?.data?.message);
     }
   };

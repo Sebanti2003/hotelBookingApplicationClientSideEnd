@@ -3,10 +3,11 @@ import { Button } from "@/components/ui/button"
 import { NavLink, useLocation} from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 import { setlogin } from '@/store/slices/userslice.slice'
+import { RootState } from "@/store/store";
 function Header() {
   const location=useLocation();
   const dispatch=useDispatch()
-  const user=useSelector(state=>state.user)
+  const user=useSelector((state:RootState)=>state.user)
   const signout=async()=>{
     try {
       const signingout=await fetch(`${import.meta.env.VITE_BACKEND_SERVER_URL}/api/v1/user/logout`,{

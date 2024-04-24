@@ -14,7 +14,9 @@ type FormData = {
   email: string;
   password: string;
 };
-
+interface eror{
+  message:string
+}
 function Signin() {
   const notify=()=>{
     toast.success("Login Successful",{
@@ -66,10 +68,11 @@ function Signin() {
       
       navigate("/");
 
-    } catch (error) {
-      console.log(error?.response?.data?.message);
-      setErr(error?.response?.data?.message);
+    } catch (error:eror) {
+      console.log(error?.message);
+      setErr(error?.message);
       
+
     }
   };
   return (
