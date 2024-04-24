@@ -14,9 +14,7 @@ type FormData = {
   email: string;
   password: string;
 };
-interface eror{
-  message:string
-}
+
 function Signin() {
   const notify=()=>{
     toast.success("Login Successful",{
