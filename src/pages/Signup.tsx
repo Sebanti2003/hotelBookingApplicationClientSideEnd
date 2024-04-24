@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Input } from "@/components/ui/input";
-import axios from "axios";
+import axios,{AxiosResponse} from "axios";
 import { Button } from "@/components/ui/button";
 import LoaderButton from "@/components/LoaderButton";
 import { FaCameraRetro } from "react-icons/fa";
@@ -13,9 +13,13 @@ type FormData = {
   password: string;
   avatar: File;
 };
-
+interface ApiResponse {
+  data:{
+    message:string
+  }
+}
 function Signup() {
-    const navigate=useNavigate();
+  const navigate = useNavigate();
   const [imageSrc, setImageSrc] = useState("");
   const [avatar, setAvatar] = useState<File>();
   const [err, setErr] = useState("");
@@ -26,23 +30,23 @@ function Signup() {
       formData.append("email", data.email);
       formData.append("password", data.password);
       formData.append("avatar", avatar as File);
-      
-      const response = await axios.post(`${import.meta.env.VITE_BACKEND_SERVER_URL}/api/v1/user/register`, formData);
-      if(response.status === 201) {
+
+      const response:AxiosResponse<ApiResponse> = await axios.post<ApiResponse>(
+        `${import.meta.env.VITE_BACKEND_SERVER_URL}/api/v1/user/register`,
+        formData
+      ) as AxiosResponse<ApiResponse>;
+      if (response.status === 201) {
         navigate("/signin");
         return;
       }
-
     } catch (error) {
       console.log(error);
-      setErr(error?.response?.data?.message);
     }
   };
-  
   const handlefileimagechange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e?.target?.files?.[0];
     setAvatar(file);
-    
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -52,7 +56,7 @@ function Signup() {
       reader.readAsDataURL(file);
     }
   };
-  
+
   const {
     register,
     handleSubmit,
@@ -64,9 +68,9 @@ function Signup() {
       username: "test",
     },
   });
-  
+
   const reffile = React.useRef<HTMLInputElement>(null);
-  
+
   return (
     <div>
       <div className="md:w-[60%] container flex justify-center items-center">

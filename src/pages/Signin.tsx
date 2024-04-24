@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import LoaderButton from "@/components/LoaderButton";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { setlogin } from "@/store/slices/userslice.slice";
 
@@ -32,7 +32,6 @@ function Signin() {
     const [err,setErr]=React.useState("");
     const navigate=useNavigate();
   const dispatch = useDispatch();
-  const user=useSelector(state=>state.user);
   const {
     register,
     handleSubmit,
@@ -68,8 +67,8 @@ function Signin() {
       navigate("/");
 
     } catch (error) {
-      console.log(error?.response?.data?.message);
-      setErr(error?.response?.data?.message);
+      console.log(error);
+      
     }
   };
   return (

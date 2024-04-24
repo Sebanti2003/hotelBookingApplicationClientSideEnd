@@ -1,4 +1,3 @@
-import React from 'react'
 
 function Search() {
   return (
@@ -12,9 +11,3 @@ function Search() {
 }
 
 export default Search
-{/* <div className=''>
-        <div className="md:w-[60%]  container">
-            HomePage
-        </div>
-      
-    </div> */}
