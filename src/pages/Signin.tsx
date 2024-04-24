@@ -67,7 +67,8 @@ function Signin() {
       navigate("/");
 
     } catch (error) {
-      console.log(error);
+      console.log(error?.response?.data?.message);
+      setErr(error?.response?.data?.message);
       
     }
   };
